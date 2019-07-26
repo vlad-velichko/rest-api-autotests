@@ -59,8 +59,7 @@ def save_data():
         payload = bottle.request.forms.get('payload')
     if not payload:
         bottle.abort(400, 'Bad request')
-    session = scoped_session(
-        sessionmaker(bind=engine))
+    session = scoped_session(sessionmaker(bind=engine))
     new_data = Uploads(
         user_id='supertest',
         payload_md5=hashlib.md5(payload.encode('utf-8')).hexdigest(),
