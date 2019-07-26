@@ -25,8 +25,8 @@ public class Tests {
     public void testPing() {
         try {
             given().when().get(config.getServiceUrl() + "ping/").then().statusCode(200);
-        } catch (Exception e) {
-            if (e instanceof ConnectException)
+        } catch (Exception e) {                             // compiler considers ConnectException can't be thrown here
+            if (e instanceof ConnectException)              // but it't thrown there really
                 fail("No connection to server " + config.getServiceUrl());
             throw e;
         }
