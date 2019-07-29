@@ -14,16 +14,16 @@ public class Config {
     public static String pingUrl;
     public static String authorizeUrl;
 
-    private static class ConfModel {
-        private String serviceUrl;
-        private String user;
-        private String password;
-        private String database;
+    static class ConfModel {
+        public String serviceUrl;
+        public String user;
+        public String password;
+        public String database;
     }
 
-    private static class EndpointsModel {
-        private String ping;
-        private String authorize;
+    static class EndpointsModel {
+        public String ping;
+        public String authorize;
     }
 
     public static void init(String configFile, String endpointsFile) throws IOException {

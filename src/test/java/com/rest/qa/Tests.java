@@ -1,6 +1,7 @@
 package com.rest.qa;
 
 import io.restassured.specification.RequestSpecification;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
@@ -17,6 +18,11 @@ public class Tests {
     @BeforeSuite
     public void beforeSuite() throws IOException {
         Config.init("config/config.yml", "config/endpoints.yml");
+    }
+
+    @BeforeMethod
+    public void beforeMethod() {
+        scenario = given();
     }
 
     @Test(description = "Simple test for checking connection. If this test fails, other tests will be skipped")
