@@ -2,36 +2,37 @@ package com.rest.qa;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import io.restassured.RestAssured;
 
 import java.io.File;
 import java.io.IOException;
 
 public class Config {
 
-    public static String serviceUrl;
     public static String userName;
     public static String password;
     public static String pingUrl;
     public static String authorizeUrl;
 
     static class ConfModel {
-        public String serviceUrl;
+        public String serviceUrl;    // need 'public' for parsing from .yaml in init()
         public String user;
         public String password;
         public String database;
+        public Endpoints endpoints;
+
+        public static class Endpoints {
+            public String ping;
+            public String authorize;
+            public String saveData;
+        }
     }
 
-    static class EndpointsModel {
-        public String ping;
-        public String authorize;
-    }
-
-    public static void init(String configFile, String endpointsFile) throws IOException {
+    public static void init(String configFile) throws IOException {
         ConfModel config = new ObjectMapper(new YAMLFactory()).readValue(new File(configFile), ConfModel.class);
-        EndpointsModel endp = new ObjectMapper(new YAMLFactory()).readValue(new File(endpointsFile), EndpointsModel.class);
-        serviceUrl = config.serviceUrl;
-        pingUrl = serviceUrl + endp.ping;
-        authorizeUrl = serviceUrl + endp.authorize;
+        RestAssured.baseURI = config.serviceUrl;
+        pingUrl = config.endpoints.ping;
+        authorizeUrl = config.endpoints.authorize;
         userName = config.user;
         password = config.password;
     }

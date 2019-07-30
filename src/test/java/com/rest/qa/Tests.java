@@ -1,60 +1,73 @@
 package com.rest.qa;
 
-import io.restassured.specification.RequestSpecification;
-import org.testng.annotations.BeforeMethod;
+import io.restassured.RestAssured;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.net.ConnectException;
 
 import static io.restassured.RestAssured.given;
-import static org.testng.Assert.fail;
+import static io.restassured.RestAssured.when;
+import static org.hamcrest.Matchers.describedAs;
+import static org.hamcrest.Matchers.matchesRegex;
 
 public class Tests {
 
-    private RequestSpecification scenario = given();        // for beautifying given-when-then
-
     @BeforeSuite
     public void beforeSuite() throws IOException {
-        Config.init("config/config.yml", "config/endpoints.yml");
+        Config.init("config.yml");
+        RestAssured.get();                                              // Check connection.
     }
 
-    @BeforeMethod
-    public void beforeMethod() {
-        scenario = given();
-    }
-
-    @Test(description = "Simple test for checking connection. If this test fails, other tests will be skipped")
+    @Test(description = "Endpoint /ping/ should return code 200")
     public void testPing() {
-        try {
-            scenario.when()
-                    .get(Config.pingUrl);
-            scenario.then()
-                    .statusCode(200);
-        } catch (Exception e) {                             // compiler considers ConnectException can't be thrown here
-            if (e instanceof ConnectException)              // but it's thrown there really
-                fail("No connection to server " + Config.serviceUrl);
-            throw e;
-        }
+        when()
+                .get(Config.pingUrl)
+                .then()
+                .statusCode(200);
     }
 
-    @Test(description = "Failed authorization for empty credentials", dependsOnMethods = "testPing")
+    @Test(description = "Failed authorization for empty credentials")
     public void testEmptyCredentials() {
-        scenario.when()
-                .post(Config.authorizeUrl);
-        scenario.then()
+        when()
+                .post(Config.authorizeUrl)
+                .then()
                 .statusCode(403);
     }
 
-    @Test(description = "Failed authorization for wrong login", dependsOnMethods = "testPing")
+    @Test(description = "Failed authorization for wrong login")
     public void testWrongLogin() {
-        scenario.given()
+        given()
+                .param("password", Config.password)
                 .param("username", "wrongUserName")
-                .param("password", Config.password);
-        scenario.when()
-                .post(Config.authorizeUrl);
-        scenario.then()
+                .when()
+                .post(Config.authorizeUrl)
+                .then()
                 .statusCode(403);
+    }
+
+    @Test(description = "Failed authorization for wrong password")
+    public void testWrongPass() {
+        given()
+                .param("username", Config.userName)
+                .param("password", "wrongPassword")
+                .when()
+                .post(Config.authorizeUrl)
+                .then()
+                .statusCode(403);
+    }
+
+    @Test(description = "Authorization with valid credentials")
+    public void testValidCredentials() {
+        given()
+                .param("username", Config.userName)
+                .param("password", Config.password)
+                .when()
+                .post(Config.authorizeUrl)
+                .then()
+                .statusCode(200)
+                .and()
+                .body("token", describedAs("Valid UUID as a token",
+                        matchesRegex("[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}")));
     }
 }

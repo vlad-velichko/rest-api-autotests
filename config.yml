@@ -1,0 +1,8 @@
+serviceUrl: http://127.0.0.1:5000
+user: supertest
+password: superpassword
+database: venv/main.db
+endpoints:
+  ping: ping/
+  authorize: authorize/
+  saveData: api/save_data/
