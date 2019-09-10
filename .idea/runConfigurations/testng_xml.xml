@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="testng.xml" type="TestNG">
-    <module name="tests" />
+    <module name="tests.test" />
     <option name="SUITE_NAME" value="$PROJECT_DIR$/src/testng.xml" />
     <option name="PACKAGE_NAME" value="" />
     <option name="MAIN_CLASS_NAME" value="" />
