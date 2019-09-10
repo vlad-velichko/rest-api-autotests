@@ -1,33 +1,15 @@
 package com.rest.qa;
 
-import io.restassured.RestAssured;
-import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
-
-import java.io.IOException;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.describedAs;
 import static org.hamcrest.Matchers.matchesRegex;
 
-public class Tests {
+public class Auth extends AbstractTest {
 
-    @BeforeSuite
-    public void beforeSuite() throws IOException {
-        Config.init("config.yml");
-        RestAssured.get();                                              // Check connection.
-    }
-
-    @Test(description = "Endpoint /ping/ should return code 200")
-    public void testPing() {
-        when()
-                .get(Config.pingUrl)
-                .then()
-                .statusCode(200);
-    }
-
-    @Test(description = "Failed authorization for empty credentials")
+    @Test(description = "Authorization with empty credentials should be failed (HTTP code 403)")
     public void testEmptyCredentials() {
         when()
                 .post(Config.authorizeUrl)
@@ -35,7 +17,7 @@ public class Tests {
                 .statusCode(403);
     }
 
-    @Test(description = "Failed authorization for wrong login")
+    @Test(description = "Authorization with wrong username and good password should be failed (HTTP code 403)")
     public void testWrongLogin() {
         given()
                 .param("password", Config.password)
@@ -46,7 +28,7 @@ public class Tests {
                 .statusCode(403);
     }
 
-    @Test(description = "Failed authorization for wrong password")
+    @Test(description = "Authorization with wrong password and good username should be failed (HTTP code 403)")
     public void testWrongPass() {
         given()
                 .param("username", Config.userName)
@@ -57,7 +39,7 @@ public class Tests {
                 .statusCode(403);
     }
 
-    @Test(description = "Authorization with valid credentials")
+    @Test(description = "Authorization with valid credentials should return code 200 and UUID-style token")
     public void testValidCredentials() {
         given()
                 .param("username", Config.userName)

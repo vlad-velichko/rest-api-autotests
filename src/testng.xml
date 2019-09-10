@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="REST API Tests">
+    <test name="Test">
+        <classes>
+<!--            <class name="com.rest.qa.Ping"/>-->
+<!--            <class name="com.rest.qa.Auth"/>-->
+            <class name="com.rest.qa.Save"/>
+        </classes>
+    </test>
+</suite>

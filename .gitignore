@@ -4,4 +4,4 @@
 /out/production/classes/
 /out/test/classes/
 /gradle/
-/.idea/
+/build/

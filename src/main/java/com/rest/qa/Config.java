@@ -13,6 +13,7 @@ public class Config {
     public static String password;
     public static String pingUrl;
     public static String authorizeUrl;
+    public static String saveUrl;
 
     static class ConfModel {
         public String serviceUrl;    // need 'public' for parsing from .yaml in init()
@@ -31,10 +32,11 @@ public class Config {
     public static void init(String configFile) throws IOException {
         ConfModel config = new ObjectMapper(new YAMLFactory()).readValue(new File(configFile), ConfModel.class);
         RestAssured.baseURI = config.serviceUrl;
-        pingUrl = config.endpoints.ping;
-        authorizeUrl = config.endpoints.authorize;
         userName = config.user;
         password = config.password;
+        pingUrl = config.endpoints.ping;
+        authorizeUrl = config.endpoints.authorize;
+        saveUrl = config.endpoints.saveData;
     }
 }
 
