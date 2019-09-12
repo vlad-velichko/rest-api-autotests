@@ -12,7 +12,7 @@ public class Auth extends AbstractTest {
     @Test(description = "Authorization with empty credentials should be failed (HTTP code 403)")
     public void testEmptyCredentials() {
         when()
-                .post(Config.authorizeUrl)
+                .post()
                 .then()
                 .statusCode(403);
     }
@@ -20,10 +20,10 @@ public class Auth extends AbstractTest {
     @Test(description = "Authorization with wrong username and good password should be failed (HTTP code 403)")
     public void testWrongLogin() {
         given()
-                .param("password", Config.password)
+                .param("password", password)
                 .param("username", "wrongUserName")
                 .when()
-                .post(Config.authorizeUrl)
+                .post()
                 .then()
                 .statusCode(403);
     }
@@ -31,10 +31,10 @@ public class Auth extends AbstractTest {
     @Test(description = "Authorization with wrong password and good username should be failed (HTTP code 403)")
     public void testWrongPass() {
         given()
-                .param("username", Config.userName)
+                .param("username", user)
                 .param("password", "wrongPassword")
                 .when()
-                .post(Config.authorizeUrl)
+                .post()
                 .then()
                 .statusCode(403);
     }
@@ -42,10 +42,10 @@ public class Auth extends AbstractTest {
     @Test(description = "Authorization with valid credentials should return code 200 and UUID-style token")
     public void testValidCredentials() {
         given()
-                .param("username", Config.userName)
-                .param("password", Config.password)
+                .param("username", user)
+                .param("password", password)
                 .when()
-                .post(Config.authorizeUrl)
+                .post()
                 .then()
                 .statusCode(200)
                 .and()

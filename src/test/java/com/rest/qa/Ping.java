@@ -9,7 +9,7 @@ public class Ping extends AbstractTest {
     @Test(description = "Endpoint /ping/ should return code 200")
     public void testPing() {
         when()
-                .get(Config.pingUrl)
+                .get()
                 .then()
                 .statusCode(200);
     }

@@ -1,9 +1,24 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="REST API Tests">
-    <test name="Test">
+    <parameter name="serviceUrl" value="http://127.0.0.1:5000"/>
+    <parameter name="database" value="venv/main.db"/>
+    <parameter name="user" value="supertest"/>
+    <parameter name="password" value="superpassword"/>
+    <test name="Ping">
+        <parameter name="endpoint" value="ping/"/>
         <classes>
-<!--            <class name="com.rest.qa.Ping"/>-->
-<!--            <class name="com.rest.qa.Auth"/>-->
+            <class name="com.rest.qa.Ping"/>
+        </classes>
+    </test>
+    <test name="Authorization">
+        <parameter name="endpoint" value="authorize/"/>
+        <classes>
+            <class name="com.rest.qa.Auth"/>
+        </classes>
+    </test>
+    <test name="Data saving">
+        <parameter name="endpoint" value="api/save_data/"/>
+        <classes>
             <class name="com.rest.qa.Save"/>
         </classes>
     </test>

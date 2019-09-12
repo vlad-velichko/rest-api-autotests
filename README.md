@@ -11,14 +11,14 @@ Test running framework - [TestNG](https://github.com/cbeust/testng).
 
 Testing and validation of REST service - [REST Assured](https://github.com/rest-assured/rest-assured).
 
-config.yml parsed by [Jackson](https://github.com/FasterXML/jackson-dataformat-yaml)
-
 main.db connected by native JDBC.
 
-Files:
-- one config file [config.yml](config.yml).
-- one class for config loading [Config.java](src/main/java/com/rest/qa/Config.java).
-- one file for tests [Tests.java](src/test/java/com/rest/qa/Tests.java)
+Tests separated by classes accordingly webservice endpoints. 
+
+In case no response from webservice, suite failed without running any tests.
+
+All parameters for tests managed by [testng.xml](testng.xml) file.
+
 ---
 **RESTfull API service** [venv/superservice.py](venv/superservice.py) was writen on Python 
 with using *bottle* and *sqlalchemy* libraries.
