@@ -4,6 +4,8 @@
     <parameter name="database" value="venv/main.db"/>
     <parameter name="user" value="supertest"/>
     <parameter name="password" value="superpassword"/>
+    <parameter name="authPath" value="authorize/"/>
+    <parameter name="retryCount" value="100"/>
     <test name="Ping">
         <parameter name="endpoint" value="ping/"/>
         <classes>
@@ -11,7 +13,6 @@
         </classes>
     </test>
     <test name="Authorization">
-        <parameter name="endpoint" value="authorize/"/>
         <classes>
             <class name="com.rest.qa.Auth"/>
         </classes>
