@@ -1,17 +1,21 @@
 Automation tests of primitive RESTfull API service.
 
-*Do you have any comments or questions? Welcome!*
+_Do you have any comments or questions? Welcome!_
 
 ---
 **Technologies:**
 
-Building - [Gradle](https://github.com/gradle/gradle).
+Building - **[Gradle](https://github.com/gradle/gradle)**.
 
-Test running framework - [TestNG](https://github.com/cbeust/testng).
+Test running and assertions - **[TestNG](https://github.com/cbeust/testng)**.
 
-Testing and validation of REST service - [REST Assured](https://github.com/rest-assured/rest-assured).
+Running and validation of HTTP requests - **[REST Assured](https://github.com/rest-assured/rest-assured)**.
 
-main.db connected by native JDBC.
+SQL queries - **[JOOQ](https://github.com/jOOQ/jOOQ)**.
+
+JSON objects - **[org.json](https://github.com/stleary/JSON-java)**.
+
+SQLite database [venv/main.db](venv/main.db) connected by native JDBC.
 
 Tests separated by classes accordingly webservice endpoints. 
 
