@@ -28,7 +28,7 @@ All parameters for tests are managed by [testng.xml](testng.xml) file.
 using *bottle* and *sqlalchemy* libraries.
 Endpoints:
 - **/ping/** - just returns code 200 on GET.
-- **/authorize/** - returns authorization token (valid 1 min) for user/password = supertest/superpassword.
+- **/authorize/** - returns authorization token (valid for 1 min) for user/password = supertest/superpassword.
 - **/api/save_data/** - saves data to *venv/main.db* for authorized user (50% succeeded).
 
 For starting *superservice*, please install Python and import libraries. 
