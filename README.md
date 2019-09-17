@@ -17,20 +17,20 @@ JSON objects - **[org.json](https://github.com/stleary/JSON-java)**.
 
 SQLite database [venv/main.db](venv/main.db) connected by native JDBC.
 
-Tests separated by classes accordingly webservice endpoints. 
+Tests are separated by classes accordingly to webservice endpoints. 
 
-In case no response from webservice, suite failed without running any tests.
+In case of no response from webservice, suite fails without running any test.
 
-All parameters for tests managed by [testng.xml](testng.xml) file.
+All parameters for tests are managed by [testng.xml](testng.xml) file.
 
 ---
 **RESTfull API service** [venv/superservice.py](venv/superservice.py) was writen on Python 
-with using *bottle* and *sqlalchemy* libraries.
+using *bottle* and *sqlalchemy* libraries.
 Endpoints:
-- **/ping/** - just code 200 on GET.
+- **/ping/** - just returns code 200 on GET.
 - **/authorize/** - returns authorization token (valid 1 min) for user/password = supertest/superpassword.
 - **/api/save_data/** - saves data to *venv/main.db* for authorized user (50% succeeded).
 
-For starting *superservice* please install Python and import libraries. 
+For starting *superservice*, please install Python and import libraries. 
 
-First start with parameter **migrate** for creating DB. Next starts with parameter **run**!
+Start with parameter **run**. If need to create database, start with parameter **migrate**. 
