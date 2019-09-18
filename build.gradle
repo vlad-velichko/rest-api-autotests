@@ -15,7 +15,12 @@ dependencies {
     testCompile group: 'org.testng', name: 'testng', version: '6.14.3'
     compile group: 'io.rest-assured', name: 'rest-assured', version: '4.0.0'
     compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.28.0'
-
     compile group: 'org.json', name: 'json', version: '20190722'
     compile group: 'org.jooq', name: 'jooq', version: '3.12.1'
+}
+
+test {
+    useTestNG() {
+        suites 'src/testng.xml'
+    }
 }
