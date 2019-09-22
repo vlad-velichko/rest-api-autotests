@@ -1,0 +1,22 @@
+name: REST API Tests
+parameters:
+  serviceUrl: http://127.0.0.1:5000
+  database: venv/main.db
+  user: supertest
+  password: superpassword
+  authPath: authorize/
+  retryCount: 100
+tests:
+  - name: Ping
+    parameters:
+      endpoint: ping/
+    classes:
+      - com.rest.qa.Ping
+  - name: Authorization
+    classes:
+      - com.rest.qa.Auth
+  - name: Data saving
+    parameters:
+      endpoint: api/save_data/
+    classes:
+      - com.rest.qa.Save

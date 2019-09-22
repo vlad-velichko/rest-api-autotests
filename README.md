@@ -19,8 +19,9 @@ SQLite database [venv/main.db](venv/main.db) connected by native JDBC.
 
 Project was written in Intellij IDEA. 
 Satellite IDEA-files are already in Git project.
-For running tests, please use created Run/Debug configuration **testng.xml** in IDEA.
-In command line can use command **`gradlew test`**.
+For running tests, please use created Run/Debug configuration **testng.xml** or **testng.yaml** in IDEA.
+For running directly in Gradle use configuration **gradle test** or command **`gradlew test`** in command line.
+
 Tests are separated to three classes according to webservice functions/endpoints.
 In case of no response from webservice, suite fails without running any test.
 Test **testSaveDbError** fails for demonstration how failed tests looks.
@@ -38,3 +39,4 @@ Endpoints:
 For runing *superservice*, please install Python and import libraries **bottle** and **sqlalchemy**. 
 There is already created Run/Debug configuration **superservice** in IDEA for starting webservice.
 In command line: start with parameter **run**. If need to create database, start with parameter **migrate**. 
+Also can use already created executors **superservice run** and **superservice migrate**
