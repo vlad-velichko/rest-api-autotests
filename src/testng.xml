@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="REST API Tests">
+<suite name="REST API Tests" verbose="2">
     <parameter name="serviceUrl" value="http://127.0.0.1:5000"/>
     <parameter name="database" value="venv/main.db"/>
     <parameter name="user" value="supertest"/>

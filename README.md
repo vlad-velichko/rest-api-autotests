@@ -5,11 +5,13 @@ _Do you have any comments or questions? Welcome!_
 ---
 **Technologies:**
 
-Building - **[Gradle](https://github.com/gradle/gradle)**.
+Java 11 as latest LTS Java.
 
-Test running and assertions - **[TestNG](https://github.com/cbeust/testng)**.
+Building - **[Gradle 5.6](https://github.com/gradle/gradle)**.
 
-Running and validation of HTTP requests - **[REST Assured](https://github.com/rest-assured/rest-assured)**.
+Test running and assertions - **[TestNG 7.0](https://github.com/cbeust/testng)**.
+
+Running and validation of HTTP requests - **[REST Assured 4.0](https://github.com/rest-assured/rest-assured)**.
 
 SQL queries - **[JOOQ](https://github.com/jOOQ/jOOQ)**.
 

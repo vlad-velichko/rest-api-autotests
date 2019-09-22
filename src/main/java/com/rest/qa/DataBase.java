@@ -44,7 +44,6 @@ public class DataBase {
     public void cleanUploads() throws Exception {
         try (DSLContext sql = dsl.get()) {
             sql.delete(table("uploads")).execute();
-            //Todo: log(" DONE ", "Table uploads was truncated!");
         }
     }
 }

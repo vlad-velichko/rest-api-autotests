@@ -1,4 +1,5 @@
 name: REST API Tests
+verbose: 2
 parameters:
   serviceUrl: http://127.0.0.1:5000
   database: venv/main.db

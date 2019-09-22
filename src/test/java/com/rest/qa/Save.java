@@ -49,7 +49,7 @@ public class Save extends AbstractTest {
         SaveRequest saveRequest = new SaveRequest().payloadText("any payload");
         saveRequest.authorize();
 
-        Logger.getLogger(this.getClass().getName()).info("<logger> Waiting 61 second for token expiration...");
+        Logger.getLogger(this.getClass().getName()).info("Waiting 61 second for token expiration...");
         SECONDS.sleep(61);
 
         saveRequest
