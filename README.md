@@ -22,7 +22,8 @@ SQLite database [venv/main.db](venv/main.db) connected by native JDBC.
 Project was written in Intellij IDEA. 
 Satellite IDEA-files are already in Git project.
 For running tests, please use created Run/Debug configuration **testng.xml** or **testng.yaml** in IDEA.
-For running directly in Gradle use configuration **gradle test** or command **`gradlew test`** in command line.
+For running directly in Gradle use configuration **gradle test** or command **`gradlew test`** in command line. 
+Html report will be generated in /build/reports/tests/test/index.html
 
 Tests are separated to three classes according to webservice functions/endpoints.
 In case of no response from webservice, suite fails without running any test.

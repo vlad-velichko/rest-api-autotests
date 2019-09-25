@@ -6,7 +6,8 @@ import static io.restassured.RestAssured.when;
 
 public class Ping extends AbstractTest {
 
-    @Test(description = "Endpoint /ping/ should return code 200")
+    @Test(description = "Endpoint /ping/ should return code 200",
+            testName = "Endpoint /ping/")
     public void testPing() {
         when().get().then().statusCode(200);
     }

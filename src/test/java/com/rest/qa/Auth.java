@@ -9,12 +9,14 @@ import static org.hamcrest.Matchers.matchesRegex;
 
 public class Auth extends AbstractTest {
 
-    @Test(description = "Authorization without credentials should be failed")
+    @Test(description = "Authorization without credentials should be failed",
+            testName = "Authorization without credentials")
     public void testEmptyCredentials() {
         when().post().then().statusCode(403);
     }
 
-    @Test(description = "Authorization with wrong username and good password should be failed (HTTP code 403)")
+    @Test(description = "Authorization with wrong username and good password should be failed (HTTP code 403)",
+            testName = "Authorization with wrong username")
     public void testWrongLogin() {
         given()
                 .param("password", password)
@@ -22,7 +24,8 @@ public class Auth extends AbstractTest {
                 .when().post().then().statusCode(403);
     }
 
-    @Test(description = "Authorization with wrong password and good username should be failed (HTTP code 403)")
+    @Test(description = "Authorization with wrong password and good username should be failed (HTTP code 403)",
+            testName = "Authorization with wrong password")
     public void testWrongPass() {
         given()
                 .param("username", user)
@@ -30,7 +33,8 @@ public class Auth extends AbstractTest {
                 .when().post().then().statusCode(403);
     }
 
-    @Test(description = "Authorization with valid credentials should return code 200 and UUID-style token")
+    @Test(description = "Authorization with valid credentials should return code 200 and UUID-style token",
+            testName = "Authorization with valid credentials")
     public void testValidCredentials() {
         given()
                 .param("username", user)

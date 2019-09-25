@@ -4,11 +4,13 @@ import io.restassured.response.Response;
 import org.testng.SkipException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.util.function.Supplier;
 import java.util.logging.Logger;
 
 import static io.restassured.RestAssured.when;
@@ -34,7 +36,8 @@ public class Save extends AbstractTest {
         db.cleanUploads();
     }
 
-    @Test(description = "Saving data without token should return error code 403. No new records in database")
+    @Test(description = "Saving data without token should return error code 403. No new records in database",
+            testName = "Save data without token")
     public void testSaveWithoutToken() {
         long time = db.getDbLastModified();
 
@@ -43,7 +46,8 @@ public class Save extends AbstractTest {
         assertEquals(db.getDbLastModified(), time, "Timestamp DB was modified last time");
     }
 
-    @Test(description = "Saving data with outdated token should return error code 403. No new records in database")
+    @Test(description = "Saving data with outdated token should return error code 403. No new records in database",
+            testName = "Save data with outdated")
     public void testSaveWithOutdatedToken() throws Exception {
         long time = db.getDbLastModified();
         SaveRequest saveRequest = new SaveRequest().payloadText("any payload");
@@ -61,7 +65,8 @@ public class Save extends AbstractTest {
         assertEquals(db.getDbLastModified(), time, "Timestamp DB was modified last time");
     }
 
-    @Test(description = "Saving data with wrong payload should return error code 400. No new records in database")
+    @Test(description = "Saving data with wrong payload should return error code 400. No new records in database",
+            testName = "Save data with wrong payload")
     public void testSaveWrongPayload() {
         long time = db.getDbLastModified();
 
@@ -74,7 +79,8 @@ public class Save extends AbstractTest {
         assertEquals(db.getDbLastModified(), time, "Timestamp DB was modified last time");
     }
 
-    @Test(description = "Saving data with DB-side error should return error message in response. No new records in database")
+    @Test(description = "Saving data with DB-side error should return error message in response. No new records in database",
+            testName = "Save data with DB-side error")
     public void testSaveDbError() {
         for (int i = 0; i < 100; i++) {
             long time = db.getDbLastModified();
@@ -92,12 +98,12 @@ public class Save extends AbstractTest {
         throw new SkipException("Test result skipped. No errors on DB side during 100 tries");
     }
 
-    @Test(description = "Saving payload in text format. Response should contain ID = ID for new MD5 record in DB")
-    public void testSaveAsText() throws Exception {
-        Response response = new SaveRequest().payloadText("text").post();
-
-        Integer id = response.path("id");
-        String md5 = new BigInteger(1, MessageDigest.getInstance("MD5").digest("text".getBytes())).toString(16);
+    @Test(description = "Saving payload in JSON format. Response should contain ID = ID for new MD5 record in DB",
+            testName = "Saving payload",
+            dataProvider = "payload")
+    public void testSavePayload(String typeOfData, Supplier<Response> payloadSupplier) throws Exception {
+        Integer id = payloadSupplier.get().path("id");
+        String md5 = new BigInteger(1, MessageDigest.getInstance("MD5").digest(typeOfData.getBytes())).toString(16);
 
         assertNotNull(id, "ID in a response");
 
@@ -107,18 +113,11 @@ public class Save extends AbstractTest {
         soft.assertAll();
     }
 
-    @Test(description = "Saving payload in JSON format. Response should contain ID = ID for new MD5 record in DB")
-    public void testSaveAsJson() throws Exception {
-        Response response = new SaveRequest().payloadJson("Json").post();
+    private Supplier<Response> text = () -> new SaveRequest().payloadText("Text").post();
+    private Supplier<Response> json = () -> new SaveRequest().payloadJson("Json").post();
 
-        Integer id = response.path("id");
-        String md5 = new BigInteger(1, MessageDigest.getInstance("MD5").digest("Json".getBytes())).toString(16);
-
-        assertNotNull(id, "ID in a response");
-
-        SoftAssert soft = new SoftAssert();
-        soft.assertEquals(db.getUserId(id), user, "Username in database");
-        soft.assertEquals(db.getPayloadMD5(id), md5, "Payload MD5 in database");
-        soft.assertAll();
+    @DataProvider()
+    public Object[][] payload() {
+        return new Object[][]{{"Text", text}, {"Json", json}};
     }
 }

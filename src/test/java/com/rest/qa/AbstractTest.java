@@ -1,13 +1,14 @@
 package com.rest.qa;
 
 import io.restassured.RestAssured;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
+import org.testng.ITest;
+import org.testng.annotations.*;
 
-public abstract class AbstractTest {
+import java.lang.reflect.Method;
 
+public abstract class AbstractTest implements ITest {
+
+    private String testName;
     static String serviceUrl;
     static String database;
     static String user;
@@ -33,5 +34,15 @@ public abstract class AbstractTest {
     @Parameters({"endpoint"})
     public void beforeClass(@Optional("") String endpoint) {
         RestAssured.basePath = endpoint.isBlank() ? authPath : endpoint;
+    }
+
+    @Override
+    public String getTestName() {
+        return testName;
+    }
+
+    @BeforeMethod
+    public void BeforeMethod(Method method, Object[] testData) {
+        testName = method.getAnnotation(Test.class).testName();
     }
 }
