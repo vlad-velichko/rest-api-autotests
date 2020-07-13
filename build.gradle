@@ -3,21 +3,19 @@ plugins {
 }
 
 group 'rest-api'
-version '1.0-SNAPSHOT'
-
-sourceCompatibility = 11
+version '1.1'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testCompile group: 'org.testng', name: 'testng', version: '7.0.0'
-    compile group: 'io.rest-assured', name: 'rest-assured', version: '4.0.0'
-    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.28.0'
-    compile group: 'org.json', name: 'json', version: '20190722'
-    compile group: 'org.jooq', name: 'jooq', version: '3.12.1'
-    compile group: 'org.yaml', name: 'snakeyaml', version: '1.25'
+    testImplementation group: 'org.testng', name: 'testng', version: '7.1.0'
+    implementation group: 'io.rest-assured', name: 'rest-assured', version: '4.3.1'
+    implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.32.3'
+    implementation group: 'org.json', name: 'json', version: '20200518'
+    implementation group: 'org.jooq', name: 'jooq', version: '3.13.2'
+    implementation group: 'org.yaml', name: 'snakeyaml', version: '1.26'
 }
 
 test {

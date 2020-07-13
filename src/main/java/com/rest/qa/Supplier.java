@@ -1,3 +1,5 @@
+// Overriding of common Supplier functional interface just for exceptions throwing
+
 package com.rest.qa;
 
 @FunctionalInterface

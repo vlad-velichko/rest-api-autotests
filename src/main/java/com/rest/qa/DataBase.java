@@ -17,7 +17,7 @@ public class DataBase {
     }
 
     private String path;
-    private Supplier<DSLContext> dsl = () -> DSL.using(getConnection("jdbc:sqlite:" + path), SQLITE);
+    private final Supplier<DSLContext> dsl = () -> DSL.using(getConnection("jdbc:sqlite:" + path), SQLITE);
 
     public DataBase(String path) {
         this.path = path;
